@@ -11,5 +11,8 @@ class Order(Base):
     customer_name = Column(String(100))
     order_date = Column(DATETIME, nullable=False, server_default=str(datetime.now()))
     description = Column(String(300))
+    promotion_id = Column(Integer, ForeignKey("promotions.id"), nullable=True)
 
     order_details = relationship("OrderDetail", back_populates="order")
+    promotion = relationship("Promotion", back_populates="orders")
+    payment = relationship("Payment", back_populates="order", uselist=False)
